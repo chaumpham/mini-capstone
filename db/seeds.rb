@@ -15,5 +15,5 @@ product.save
 product = Product.new({name:"baby sitter", price:"$10", image:"https://jokideo.com/wp-content/uploads/2013/08/Creepy-meme-The-new-babysitter.png", description:"can babysit your evilest child"})
 product.save
 
-product = Product.new({name:"pretend to be your girlfriend for a day", price:"$255", image:"https://pics.me.me/me-as-a-girlfriend-woutre-blocking-myviewg-21031624.png", description:"price not including dinner, pickup/drop-off, tips, gifts, clothes, anything else"})
+product = Product.new({name:"pretend to be your girlfriend for a day", price:"$255", image:"https://pics.me.me/me-as-a-girlfriend-woutre-blocking-myviewg-21031624.png", description:"price does not include dinner, pickup/drop-off, tips, gifts, clothes, anything else"})
 product.save
