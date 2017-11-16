@@ -8,4 +8,9 @@ class V1::ProductsController < ApplicationController
     product = Product.first
     render json: product.as_json
   end
+
+  def query_all_product_method
+    input_product = params["name"]
+    render json: { message: "Your product is #{input_product}"}
+  end
 end
