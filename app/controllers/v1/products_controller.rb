@@ -1,5 +1,5 @@
 class V1::ProductsController < ApplicationController
-  def all_products_method
+  def index
     products = Product.all
     render json: products.as_json
   end
