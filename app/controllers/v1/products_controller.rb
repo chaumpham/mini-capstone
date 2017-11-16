@@ -9,8 +9,9 @@ class V1::ProductsController < ApplicationController
     render json: product.as_json
   end
 
-  def query_all_product_method
-    input_product = params["name"]
-    render json: { message: "Your product is #{input_product}"}
+  def query_all_products_method
+    product_id = params["input_product_id"]
+    product = Product.find_by(id: product_id)
+    render json: product.as_json
   end
 end
