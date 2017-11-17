@@ -9,7 +9,7 @@ class V1::ProductsController < ApplicationController
       name: params["input_name"],
       price: params["input_price"],
       image: params["input_image"],
-      description: params["input_image"]
+      description: params["input_description"]
       )
 
     product.save
@@ -19,6 +19,17 @@ class V1::ProductsController < ApplicationController
   def show
     product_id = params["id"]
     product = Product.find_by(id: product_id)
+    render json: product.as_json
+  end
+
+  def update
+    product_id = params["id"]
+    product = Product.find_by(id: product_id)
+    product.name = params["input_name"]
+    product.price = params["input_price"]
+    product.image = params["input_image"]
+    product.description = params["input_description"]
+    product.save
     render json: product.as_json
   end
 end
