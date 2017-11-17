@@ -5,13 +5,12 @@ class V1::ProductsController < ApplicationController
   end
 
   def create
-    prodcut = Product.new(
+    product = Product.new(
       name: params["input_name"],
       price: params["input_price"],
       image: params["input_image"],
       description: params["input_description"]
       )
-
     product.save
     render json: product.as_json
   end
@@ -31,5 +30,12 @@ class V1::ProductsController < ApplicationController
     product.description = params["input_description"]
     product.save
     render json: product.as_json
+  end
+
+  def destroy
+    product_id = params["id"]
+    product = Product.find_by(id: product_id)
+    product.destroy
+    render json: {message: "Product successfully destroy!"}
   end
 end
