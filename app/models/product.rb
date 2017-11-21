@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
   def is_discounted
-    price[0] =''
     if price.to_f < 25
       return true 
     else 
