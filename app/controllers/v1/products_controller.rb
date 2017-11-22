@@ -11,8 +11,11 @@ class V1::ProductsController < ApplicationController
       image: params["input_image"],
       description: params["input_description"]
       )
-    product.save
-    render json: product.as_json
+    if product.save
+      render json: product.as_json
+    else
+      render json: {errors: product.errors.full_messages}, status: :bad_request
+    end
   end
 
   def show
@@ -28,8 +31,11 @@ class V1::ProductsController < ApplicationController
     product.price = params["input_price"]
     product.image = params["input_image"]
     product.description = params["input_description"]
-    product.save
-    render json: product.as_json
+    if product.save
+      render json: product.as_json
+    else 
+      render json: {errors: product.errors.full_messages}, status: :bad_request 
+    end
   end
 
   def destroy
