@@ -3,6 +3,8 @@ class V1::ProductsController < ApplicationController
     products = Product.all.order(:id => :asc)
     if params[:search]
       products = products.where("name ILIKE ?", "%#{params[:search]}%")
+    elsif params[:sort_by_price]
+      products = Product.all.order(:price => :asc)
     end
     render json: products.as_json
   end
