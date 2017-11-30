@@ -10,17 +10,21 @@ class V1::ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(
-      name: params["input_name"],
-      price: params["input_price"],
-      image: params["input_image"],
-      description: params["input_description"]
-      )
-    if product.save
-      render json: product.as_json
-    else
-      render json: {errors: product.errors.full_messages}, status: :bad_request
-    end
+    if current_user && current_user.admin
+      product = Product.new(
+        name: params["input_name"],
+        price: params["input_price"],
+        image: params["input_image"],
+        description: params["input_description"]
+        )
+      if product.save
+        render json: product.as_json
+      else
+        render json: {errors: product.errors.full_messages}, status: :bad_request
+      end
+    else 
+      render json: {}, status: :unauthorized
+    end 
   end
 
   def show
