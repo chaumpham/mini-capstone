@@ -5,7 +5,7 @@ class Product < ApplicationRecord
 
 
   def is_discounted
-    if price.to_f < 25
+    if price < 25
       return true 
     else 
       return false
@@ -13,12 +13,12 @@ class Product < ApplicationRecord
   end 
   
   def tax
-    tax = price.to_f * 0.09
+    tax = price * 0.09
     tax = tax.round / 100.0
   end 
 
   def total
-    total = price.to_f + tax
+    total = price + tax
   end 
 
   def as_json

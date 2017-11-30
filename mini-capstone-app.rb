@@ -11,6 +11,8 @@ puts "Option [3]: View a specific product"
 puts "Option [4]: Update a specific product"
 puts "Option [5]: Delete a specific product"
 puts "Option signup: Create a user"
+puts "Option login: Create a JSON web token"
+puts "Option logout: create the JSON wweb token"
 
 input_option = gets.chomp
 
@@ -78,7 +80,7 @@ elsif input_option == "5"
 
 elsif input_option == "signup"
   params = {}
-  puts "Enter your username:"
+  puts "Enter your name:"
   params[:name] = gets.chomp
   puts "Enter your email:"
   params[:email] = gets.chomp
@@ -89,4 +91,19 @@ elsif input_option == "signup"
   response = Unirest.post("http://localhost:3000/v1/users/", parameters: params)
   pp response.body
 
+elsif  input_option == "login"
+  params = {}
+  puts "Email: "
+  params[:email] = gets.chomp
+  puts "Password: "
+  params[:password] = gets.chomp 
+  response = Unirest.post(
+    "http://localhost:3000/user_token", 
+    parameters: {auth: {email: params[:email], password: params[:password]}
+    }
+  )
+  pp response.body
+
+  jwt = response.body["jwt"]
+  Unirest.default_header("Authorization", "Bearer #{jwt}")
 end 
