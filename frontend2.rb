@@ -1,30 +1,44 @@
 require "unirest"
 require "pp"
 
+
 system "clear"
 
 class Frontend
-  def initialize 
+  def initialize
+    @jwt = ""
+    @menu_options = [
+      {}
+    ]
+  end 
+
+  def show_menu 
+    puts "Welcome to the Mini Capstone Create App!  Please select an option:"
+    puts "Option [1]: View all products"
+    puts "  Option [1.1]: Search for a product by name"
+    puts "  Option [1.2]: Sort all products by price"
+    puts "Option [2]: Create a new product"
+    puts "Option [3]: View a specific product"
+    puts "Option [4]: Update a specific product"
+    puts "Option [5]: Delete a specific product"
+    puts "Option [6]: Order a product"
+    puts
+    puts "Option [signup]: Create a user"
+    puts "Option [login]: Create a JSON web token"
+    puts "Option [logout]: create the JSON wweb token"
   end
 
   def run 
     while true
+      show_menu
+      response = Unirest.get("http://localhost:3000/v1/products?search=#{input_search}")
+      product = response.body
+      pp product
     end 
   end 
+
 end 
-puts "Welcome to the Mini Capstone Create App!  Please select an option:"
-puts "Option [1]: View all products"
-puts "Option [1.1]: Search for a product by name"
-puts "Option [1.2]: Sort all products by price"
-puts "Option [2]: Create a new product"
-puts "Option [3]: View a specific product"
-puts "Option [4]: Update a specific product"
-puts "Option [5]: Delete a specific product"
-puts "Option [6]: Order a product"
-puts
-puts "Option [signup]: Create a user"
-puts "Option [login]: Create a JSON web token"
-puts "Option [logout]: create the JSON wweb token"
+
 input_option = gets.chomp
 
 if input_option == "1"
@@ -102,8 +116,7 @@ elsif input_option == "signup"
   response = Unirest.post("http://localhost:3000/v1/users/", parameters: params)
   pp response.body
 
-elsif  input_option == "login"
-  params = {}
+  def login
   puts "Email: "
   params[:email] = gets.chomp
   puts "Password: "
@@ -117,6 +130,7 @@ elsif  input_option == "login"
 
   jwt = response.body["jwt"]
   Unirest.default_header("Authorization", "Bearer #{jwt}")
+  end
 
 elsif input_option == "6"
   params = {}
@@ -134,6 +148,8 @@ elsif input_option == "6"
     pp order
   end 
 end 
+
+
 
 frontend = Frontend.new
 frontend.run

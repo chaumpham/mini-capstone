@@ -3,10 +3,16 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: true
   validates :description, length: { in: 20..500 }
 
+  has_many :category_products  
   has_many :orders
-  def supplier
-    Supplier.find_by(id: self.supplier_id)
-  end
+  belongs_to :supplier
+  # def supplier
+  #   Supplier.find_by(id: self.supplier_id)
+  # end
+
+  has_many :users
+  #has_many :orders
+  has_many :carted_products
 
 
   def is_discounted
